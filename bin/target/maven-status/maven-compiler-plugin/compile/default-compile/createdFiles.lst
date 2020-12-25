@@ -1,0 +1,6 @@
+mx\com\gm\model\Especialidad.class
+mx\com\gm\model\EspecialidadServiceImpl.class
+mx\com\gm\services\clinicaServiceApplication.class
+mx\com\gm\model\EspecialidadRepositorio.class
+mx\com\gm\controller\Controlador.class
+mx\com\gm\model\EspecialidadService.class
