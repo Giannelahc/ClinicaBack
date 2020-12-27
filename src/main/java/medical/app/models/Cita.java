@@ -39,6 +39,9 @@ public class Cita implements Serializable{
 	@Column(name = "fecha_registro", nullable=false)
 	private Date fechaRegistro;
 	
+	@Column(name = "fecha_cita", nullable=false)
+	private Date fechaCita;
+	
 	@Column(name = "estado", nullable=false)
 	private String estado;
 	
@@ -80,6 +83,14 @@ public class Cita implements Serializable{
 
 	public void setFechaRegistro(Date fechaRegistro) {
 		this.fechaRegistro = fechaRegistro;
+	}
+
+	public Date getFechaCita() {
+		return fechaCita;
+	}
+
+	public void setFechaCita(Date fechaCita) {
+		this.fechaCita = fechaCita;
 	}
 
 	public String getEstado() {

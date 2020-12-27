@@ -8,4 +8,6 @@ import medical.app.models.Persona;
 @Repository
 public interface PersonaRepositorio extends JpaRepository<Persona, Long>{
 
+	boolean existsByEmail(String email);
+	boolean existsByDni(String dni);
 }
