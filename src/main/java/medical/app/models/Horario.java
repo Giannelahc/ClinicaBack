@@ -17,21 +17,21 @@ public class Horario implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_horario")
+	@Column(name = "id_horario", nullable = false)
 	private Long id;
 	
-	@Column(name = "dia")
+	@Column(name = "dia", nullable = false)
 	private String dia;
 	
 	@Column(name = "estado")
 	private String estado;
 	
 	@ManyToOne
-	@JoinColumn(name="id_doctor")
+	@JoinColumn(name="id_doctor", nullable = false)
 	private Doctor doctor;
 	
 	@ManyToOne
-	@JoinColumn(name = "id_especialidad")
+	@JoinColumn(name = "id_especialidad", nullable = false)
 	private Especialidad especialidad;
 	
 	public Long getId() {

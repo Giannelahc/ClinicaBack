@@ -11,6 +11,7 @@ import medical.app.models.HistorialPaciente;
 import medical.app.models.Persona;
 import medical.app.repository.HistorialPacienteRepositorio;
 import medical.app.service.HistorialPacienteService;
+import medical.app.util.Funciones;
 
 @Service
 public class HistorialPacienteServiceImpl implements HistorialPacienteService{
@@ -21,7 +22,7 @@ public class HistorialPacienteServiceImpl implements HistorialPacienteService{
 	@Override
 	@Transactional(readOnly = false)
 	public HistorialPaciente registrar(HistorialPaciente historialPaciente) {
-		historialPaciente.setFechaCreacion(new Date());
+		historialPaciente.setFechaCreacion(Funciones.convertirFecha(new Date()));
 		return pacienteRepositorio.save(historialPaciente);
 	}
 

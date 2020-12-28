@@ -15,19 +15,19 @@ public class Auditoria {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_audit")
+	@Column(name = "id_audit", nullable = false)
 	private Long id;
 	
-	@Column(name = "tabla")
+	@Column(name = "tabla", nullable = false)
 	private String tabla;
 	
 	@Column(name = "id_registro")
 	private Long idRegistro;
 	
-	@Column(name = "fecha_registro")
+	@Column(name = "fecha_registro", nullable = false)
 	private Date fechaRegistro;
 	
-	@Column(name = "metodo")
+	@Column(name = "metodo", nullable = false)
 	private String metodo;
 
 	public Auditoria(String tabla, Long idRegistro, Date fechaRegistro, String metodo) {

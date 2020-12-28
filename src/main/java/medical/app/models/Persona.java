@@ -24,17 +24,19 @@ public class Persona implements Serializable{
 	@Column(name = "id_persona", nullable = false, unique = true)
 	private Long id;
 	
+	@Column(name = "email", nullable = false)
 	private String email;
 	
+	@Column(name = "password", nullable = false)
 	private String password;
 	
 	@Column(name = "nombre", nullable = false, length = 20)
 	private String nombre;
 	
-	@Column(name = "apellido_paterno", nullable = false, length = 20)
+	@Column(name = "apellido_paterno", nullable = false)
 	private String apellidoPaterno;
 	
-	@Column(name = "apellido_materno", nullable = false, length = 20)
+	@Column(name = "apellido_materno", nullable = false)
 	private String apellidoMaterno;
 	
 	@Column(name = "dni", nullable = false, unique = true, length = 8)

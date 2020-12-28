@@ -16,10 +16,10 @@ public class Especialidad implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_especialidad")
+	@Column(name = "id_especialidad", nullable = false)
 	private Long id;
 	
-	@Column(name = "nombre")
+	@Column(name = "nombre", nullable = false)
 	private String nombre;
 	
 	@Column(name = "costo", nullable = false)

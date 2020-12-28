@@ -19,7 +19,7 @@ public class Turno implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_turno")
+	@Column(name = "id_turno", nullable = false)
 	private Long id;
 	
 	@Column(name = "hora_inicio")

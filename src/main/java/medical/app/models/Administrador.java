@@ -22,7 +22,7 @@ public class Administrador implements Serializable{
 	@JoinColumn(name = "id_persona", nullable = false)
 	private Persona persona;
 	
-	@Column(name = "estado")
+	@Column(name = "estado", nullable = false)
 	private String estado;
 	
 	public Long getId() {
