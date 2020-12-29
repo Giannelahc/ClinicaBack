@@ -9,9 +9,15 @@ public class Constantes {
 	
 	public static final String DNI_ERROR_RESPONSE = "DNI ya registrado";
 	
+	public static final String ID_ERROR_RESPONSE = "Usuario no encontrado";
+	
 	public static final String REGISTRO_ERROR_RESPONSE = "Error al registrar al usuario";
 	
 	public static final String REGISTRO_EXITO_RESPONSE = "Se registró al usuario exitosamente";
+	
+	public static final String MODIFICACION_ERROR_RESPONSE = "Error al modificar al usuario";
+	
+	public static final String MODIFICACION_EXITO_RESPONSE = "Se modifico al usuario exitosamente";
 	
 	public static final String OBTENER_HISTORIAL_ERROR_RESPONSE = "Error al obtener historial del paciente";
 	

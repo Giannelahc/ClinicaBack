@@ -56,4 +56,10 @@ public class HistorialPacienteServiceImpl implements HistorialPacienteService{
 		return pacienteRepositorio.findByPersona(persona);
 	}
 
+	@Override
+	@Transactional(readOnly = true)
+	public boolean existePorId(Long id) {
+		return pacienteRepositorio.existsById(id);
+	}
+
 }

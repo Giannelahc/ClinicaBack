@@ -62,6 +62,24 @@ public class HistorialPaciente {
 	@Column(name = "observaciones")
 	private String observaciones;
 	
+	public HistorialPaciente() {}
+	
+	private HistorialPaciente(HistorialPacienteBuilder historialBuilder) {
+		this.id = historialBuilder.id;
+		this.persona = historialBuilder.persona;
+		this.direccion = historialBuilder.direccion;
+		this.fechaNacimiento = historialBuilder.fechaNacimiento;
+		this.lugarNacimiento = historialBuilder.lugarNacimiento;
+		this.alergias = historialBuilder.alergias;
+		this.edad = historialBuilder.edad;
+		this.estadoCivil = historialBuilder.estadoCivil;
+		this.tipoSangre = historialBuilder.tipoSangre;
+		this.sexo = historialBuilder.sexo;
+		this.celular = historialBuilder.celular;
+		this.antecedentesFamiliares = historialBuilder.antecedentesFamiliares;
+		this.observaciones = historialBuilder.observaciones;
+	}
+	
 	public Long getId() {
 		return id;
 	}
@@ -201,4 +219,72 @@ public class HistorialPaciente {
 		this.observaciones = observaciones;
 	}
 
+	public static class HistorialPacienteBuilder{
+		
+		private Long id;
+		
+		private Persona persona;
+		
+		private Direccion direccion;
+		
+		private Date fechaNacimiento;
+		
+		private String lugarNacimiento;
+		
+		private String alergias;
+		
+		private Integer edad;
+		
+		private String estadoCivil;
+		
+		private String tipoSangre;
+		
+		private String sexo;
+		
+		private String celular;
+		
+		private String antecedentesFamiliares;
+		
+		private String observaciones;
+		
+		public HistorialPacienteBuilder(Persona persona) {
+			this.persona = persona;
+		}
+		
+		public HistorialPacienteBuilder direccionActualYnacim(Direccion direccion, String lugarNacimiento) {
+			this.direccion = direccion;
+			this.lugarNacimiento = lugarNacimiento;
+			return this;
+		}
+		
+		public HistorialPacienteBuilder datosPersonales(Integer edad, String estadoCivil, String sexo, String celular) {
+			this.edad = edad;
+			this.estadoCivil = estadoCivil;
+			this.sexo = sexo;
+			this.celular = celular;
+			return this;
+		}
+		
+		public HistorialPacienteBuilder datosClinicos(String alergias, String tipoSangre, String antecedentesFamiliares, String observaciones) {
+			this.alergias = alergias;
+			this.tipoSangre = tipoSangre;
+			this.antecedentesFamiliares = antecedentesFamiliares;
+			this.observaciones = observaciones;
+			return this;
+		}
+		
+		public HistorialPacienteBuilder fechaNacimiento(Date fechaNacimiento) {
+			this.fechaNacimiento = fechaNacimiento;
+			return this;
+		}
+		
+		public HistorialPacienteBuilder id(Long id) {
+			this.id = id;
+			return this;
+		}
+		
+		public HistorialPaciente build() {
+			return new HistorialPaciente(this);
+		}
+	}
 }

@@ -111,7 +111,68 @@ public class Persona implements Serializable{
 		this.roles = roles;
 	}
 
-
+	public Persona() {}
+	
+	private Persona(PersonaBuilder builder) {
+		this.id = builder.id;
+		this.email = builder.email;
+		this.password = builder.password;
+		this.roles = builder.roles;
+		this.nombre = builder.nombre;
+		this.apellidoPaterno = builder.apellidoPaterno;
+		this.apellidoMaterno = builder.apellidoMaterno;
+		this.dni = builder.dni;
+	}
+	
 	private static final long serialVersionUID = 1L;
+	
+	public static class PersonaBuilder{
+		
+		private Long id;
+		
+		private String email;
+		
+		private String password;
+		
+		private String nombre;
+		
+		private String apellidoPaterno;
+		
+		private String apellidoMaterno;
+		
+		private String dni;
+		
+		private List<Role> roles;
+		
+		public PersonaBuilder() {}
+		
+		public PersonaBuilder credenciales(String email, String password, List<Role> roles) {
+			this.email = email;
+			this.password = password;
+			this.roles = roles;
+			return this;
+		}
+		
+		public PersonaBuilder nombreCompleto(String nombre, String apellidoPaterno, String apellidoMaterno) {
+			this.nombre = nombre;
+			this.apellidoPaterno = apellidoPaterno;
+			this.apellidoMaterno = apellidoMaterno;
+			return this;
+		}
+		
+		public PersonaBuilder dni(String dni) {
+			this.dni = dni;
+			return this;
+		}
+		
+		public PersonaBuilder id(Long id) {
+			this.id = id;
+			return this;
+		}
+		
+		public Persona build() {
+			return new Persona(this);
+		}
+	}
 
 }
