@@ -14,7 +14,6 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 
-
 @Entity
 @Table(name = "cita")
 public class Cita implements Serializable{

@@ -1,24 +1,20 @@
 package medical.app.models;
 
-import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 
 @Entity
 @Table(name = "historial_paciente")
-public class HistorialPaciente implements Serializable{
+public class HistorialPaciente {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,6 +24,10 @@ public class HistorialPaciente implements Serializable{
 	@OneToOne
 	@JoinColumn(name = "id_persona", nullable = false)
 	private Persona persona;
+	
+	@OneToOne
+	@JoinColumn(name = "id_direccion")
+	private Direccion direccion;
 	
 	@Column(name = "fecha_creacion", nullable = false)
 	private Date fechaCreacion;
@@ -56,18 +56,11 @@ public class HistorialPaciente implements Serializable{
 	@Column(name = "celular")
 	private String celular;
 	
-	@Column(name = "direccion")
-	private String direccion;
-	
 	@Column(name = "antecedentes_familiares")
 	private String antecedentesFamiliares;
 	
 	@Column(name = "observaciones")
 	private String observaciones;
-	
-	@OneToMany(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_historial")
-	private List<Cita> citas;
 	
 	public Long getId() {
 		return id;
@@ -86,6 +79,16 @@ public class HistorialPaciente implements Serializable{
 
 	public void setPersona(Persona persona) {
 		this.persona = persona;
+	}
+
+
+	public Direccion getDireccion() {
+		return direccion;
+	}
+
+
+	public void setDireccion(Direccion direccion) {
+		this.direccion = direccion;
 	}
 
 
@@ -179,16 +182,6 @@ public class HistorialPaciente implements Serializable{
 	}
 
 
-	public String getDireccion() {
-		return direccion;
-	}
-
-
-	public void setDireccion(String direccion) {
-		this.direccion = direccion;
-	}
-
-
 	public String getAntecedentesFamiliares() {
 		return antecedentesFamiliares;
 	}
@@ -207,8 +200,5 @@ public class HistorialPaciente implements Serializable{
 	public void setObservaciones(String observaciones) {
 		this.observaciones = observaciones;
 	}
-
-
-	private static final long serialVersionUID = 1L;
 
 }
