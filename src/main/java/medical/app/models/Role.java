@@ -8,11 +8,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 
 
 @Entity
-@Table(name = "authorities", uniqueConstraints = {@UniqueConstraint(columnNames = {"id_persona","authority"})})
+@Table(name = "authorities")//uniqueConstraints = {@UniqueConstraint(columnNames = {"id_persona","authority"})}
 public class Role implements Serializable{
 
 	@Id

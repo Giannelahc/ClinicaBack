@@ -1,9 +1,7 @@
 package medical.app.models;
 
 import java.io.Serializable;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,7 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 
@@ -33,19 +31,18 @@ public class Persona implements Serializable{
 	@Column(name = "nombre", nullable = false, length = 20)
 	private String nombre;
 	
-	@Column(name = "apellido_paterno", nullable = false)
-	private String apellidoPaterno;
-	
-	@Column(name = "apellido_materno", nullable = false)
-	private String apellidoMaterno;
+	@Column(name = "apellidos", nullable = false)
+	private String apellidos;
 	
 	@Column(name = "dni", nullable = false, unique = true, length = 8)
 	private String dni;
 	
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "id_persona")
-	@Column(name = "roles")
-	private List<Role> roles;
+	@Column(name = "tipo_usuario", nullable = false)
+	private String tipoUsuario;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_role", nullable = false)
+	private Role role;
 
 	public Long getId() {
 		return id;
@@ -79,20 +76,12 @@ public class Persona implements Serializable{
 		this.nombre = nombre;
 	}
 
-	public String getApellidoPaterno() {
-		return apellidoPaterno;
+	public String getApellidos() {
+		return apellidos;
 	}
 
-	public void setApellidoPaterno(String apellidoPaterno) {
-		this.apellidoPaterno = apellidoPaterno;
-	}
-
-	public String getApellidoMaterno() {
-		return apellidoMaterno;
-	}
-
-	public void setApellidoMaterno(String apellidoMaterno) {
-		this.apellidoMaterno = apellidoMaterno;
+	public void setApellidos(String apellidos) {
+		this.apellidos = apellidos;
 	}
 
 	public String getDni() {
@@ -103,12 +92,20 @@ public class Persona implements Serializable{
 		this.dni = dni;
 	}
 
-	public List<Role> getRoles() {
-		return roles;
+	public Role getRole() {
+		return role;
 	}
 
-	public void setRoles(List<Role> roles) {
-		this.roles = roles;
+	public void setRole(Role role) {
+		this.role = role;
+	}
+
+	public String getTipoUsuario() {
+		return tipoUsuario;
+	}
+
+	public void setTipoUsuario(String tipoUsuario) {
+		this.tipoUsuario = tipoUsuario;
 	}
 
 	public Persona() {}
@@ -117,10 +114,10 @@ public class Persona implements Serializable{
 		this.id = builder.id;
 		this.email = builder.email;
 		this.password = builder.password;
-		this.roles = builder.roles;
+		this.role = builder.role;
 		this.nombre = builder.nombre;
-		this.apellidoPaterno = builder.apellidoPaterno;
-		this.apellidoMaterno = builder.apellidoMaterno;
+		this.apellidos = builder.apellidos;
+		this.tipoUsuario = builder.tipoUsuario;
 		this.dni = builder.dni;
 	}
 	
@@ -136,27 +133,27 @@ public class Persona implements Serializable{
 		
 		private String nombre;
 		
-		private String apellidoPaterno;
-		
-		private String apellidoMaterno;
+		private String apellidos;
 		
 		private String dni;
 		
-		private List<Role> roles;
+		private Role role;
+		
+		private String tipoUsuario;
 		
 		public PersonaBuilder() {}
 		
-		public PersonaBuilder credenciales(String email, String password, List<Role> roles) {
+		public PersonaBuilder credenciales(String email, String password, Role role, String tipoUsuario) {
 			this.email = email;
 			this.password = password;
-			this.roles = roles;
+			this.role = role;
+			this.tipoUsuario = tipoUsuario;
 			return this;
 		}
 		
-		public PersonaBuilder nombreCompleto(String nombre, String apellidoPaterno, String apellidoMaterno) {
+		public PersonaBuilder nombreCompleto(String nombre, String apellidos) {
 			this.nombre = nombre;
-			this.apellidoPaterno = apellidoPaterno;
-			this.apellidoMaterno = apellidoMaterno;
+			this.apellidos = apellidos;
 			return this;
 		}
 		

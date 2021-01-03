@@ -45,29 +45,37 @@ public class PacienteController {
 	public ResponseEntity<Map<String,Object>> registrar(@RequestBody HistorialPacienteDTO paciente){
 		Map<String,Object> response = new HashMap<>();
 		try {
-			if(personaService.existePorEmail(paciente.getEmail())) {
-				response.put(Constantes.ERROR_MSG, Constantes.EMAIL_ERROR_RESPONSE);
-			}else if(personaService.existePorDni(paciente.getDni()))
-				response.put(Constantes.ERROR_MSG, Constantes.DNI_ERROR_RESPONSE);
+			if(personaService.existePorEmail(paciente.getPersona().getEmail())) {
+				response.put(Constantes.TITULO_TXT, Constantes.TITULO_ADVERTENCIA);
+				response.put(Constantes.TIPO_TXT, Constantes.TIPO_ADVERTENCIA);
+				response.put(Constantes.MSG_TXT, Constantes.EMAIL_ERROR_RESPONSE);
+			}else if(personaService.existePorDni(paciente.getPersona().getDni())) {
+				response.put(Constantes.TITULO_TXT, Constantes.DNI_ERROR_RESPONSE);
+				response.put(Constantes.TIPO_TXT, Constantes.TIPO_ADVERTENCIA);
+				response.put(Constantes.MSG_TXT, Constantes.DNI_ERROR_RESPONSE);
+			}
 			else {
 				//paciente.getPersona().setPassword(passwordEncoder);
 				
 				Persona persona = (new PersonaBuilder()
-						.nombreCompleto(paciente.getNombreCompleto().split(" ")[0], paciente.getNombreCompleto().split(" ")[1], paciente.getNombreCompleto().split(" ")[2])
-						.credenciales(paciente.getEmail(), paciente.getPassword(), paciente.getRoles())
-						.dni(paciente.getDni())
+						.nombreCompleto(paciente.getPersona().getNombre(), paciente.getPersona().getApellidos())
+						.credenciales(paciente.getPersona().getEmail(), paciente.getPersona().getPassword(), paciente.getPersona().getRole(), paciente.getPersona().getTipoUsuario())
+						.dni(paciente.getPersona().getDni())
 						.build());
 				
 				pacienteService.registrar((new HistorialPacienteBuilder(personaService.registrar(persona)))
 						.fechaNacimiento(Funciones.convertirFecha(paciente.getFechaNacimiento()))
 						.build());
 				
-				response.put(Constantes.EXITO_MSG, Constantes.REGISTRO_EXITO_RESPONSE);
+				response.put(Constantes.TITULO_TXT, Constantes.TITULO_EXITO);
+				response.put(Constantes.TIPO_TXT, Constantes.TIPO_EXITO);
+				response.put(Constantes.MSG_TXT, Constantes.REGISTRO_EXITO_MSG);
 			}
 			return new ResponseEntity<>(response, HttpStatus.CREATED);
 		}catch(Exception e) {
-			response.put(Constantes.ERROR_MSG, Constantes.REGISTRO_ERROR_RESPONSE);
-			response.put(Constantes.MSG, e.getMessage());
+			response.put(Constantes.TITULO_TXT, Constantes.TITULO_ERROR);
+			response.put(Constantes.TIPO_TXT, Constantes.TIPO_ERROR);
+			response.put(Constantes.MSG_TXT, Constantes.REGISTRO_ERROR_MSG);//e.getMessage()
 			return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
 		}
 		
@@ -80,11 +88,11 @@ public class PacienteController {
 			HistorialPaciente historial = pacienteService.obtenerPorPersona(id);
 			historial.setFechaCreacion(Funciones.convertirFecha(historial.getFechaCreacion()));
 			historial.setFechaNacimiento(Funciones.convertirFecha(historial.getFechaNacimiento()));
-			response.put(Constantes.HISTORIAL_RESPONSE, historial);
+			response.put(Constantes.DATA_OBJECT_RESPONSE, historial);
 			return new ResponseEntity<>(response, HttpStatus.OK);
 		}catch(Exception e) {
-			response.put(Constantes.ERROR_MSG, Constantes.OBTENER_HISTORIAL_ERROR_RESPONSE);
-			response.put(Constantes.MSG, e.getMessage());
+			response.put(Constantes.TIPO_ERROR, Constantes.OBTENER_HISTORIAL_ERROR_MSG);
+			response.put(Constantes.MSG_TXT, e.getMessage());
 			return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
 		}
 	}
@@ -97,9 +105,9 @@ public class PacienteController {
 				
 				Persona persona = (new PersonaBuilder()
 						.id(paciente.getIdPersona())
-						.nombreCompleto(paciente.getNombreCompleto().split(" ")[0], paciente.getNombreCompleto().split(" ")[1], paciente.getNombreCompleto().split(" ")[2])
-						.credenciales(paciente.getEmail(), paciente.getPassword(), paciente.getRoles())
-						.dni(paciente.getDni())
+						.nombreCompleto(paciente.getPersona().getNombre(), paciente.getPersona().getApellidos())
+						.credenciales(paciente.getPersona().getEmail(), paciente.getPersona().getPassword(), paciente.getPersona().getRole(), paciente.getPersona().getTipoUsuario())
+						.dni(paciente.getPersona().getDni())
 						.build());
 			
 				Direccion direccion = new Direccion();
@@ -116,15 +124,20 @@ public class PacienteController {
 						.id(paciente.getId())
 						.build());
 				
-				response.put(Constantes.EXITO_MSG, Constantes.MODIFICACION_EXITO_RESPONSE);
+				response.put(Constantes.TITULO_TXT, Constantes.TITULO_EXITO);
+				response.put(Constantes.TIPO_TXT, Constantes.TIPO_EXITO);
+				response.put(Constantes.MSG_TXT, Constantes.MODIFICACION_EXITO_MSG);
 				return new ResponseEntity<>(response, HttpStatus.OK);
 			}else {
-				response.put(Constantes.ERROR_MSG, Constantes.ID_ERROR_RESPONSE);
+				response.put(Constantes.TITULO_TXT, Constantes.TITULO_ADVERTENCIA);
+				response.put(Constantes.TIPO_TXT, Constantes.TIPO_ADVERTENCIA);
+				response.put(Constantes.MSG_TXT, Constantes.ID_ERROR_RESPONSE);
 				return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
 			}
 		}catch(Exception e) {
-			response.put(Constantes.ERROR_MSG, Constantes.MODIFICACION_ERROR_RESPONSE);
-			response.put(Constantes.MSG, e.getMessage());
+			response.put(Constantes.TITULO_TXT, Constantes.TITULO_ERROR);
+			response.put(Constantes.TIPO_TXT, Constantes.TIPO_ERROR);
+			response.put(Constantes.MSG_TXT, Constantes.MODIFICACION_ERROR_MSG);//e.getMessage()
 			return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
 		}
 	}
